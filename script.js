@@ -1,5 +1,8 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
+canvas.width  = window.innerWidth;
+canvas.height  = window.innerHeight;
+
 // let myFont = new FontFace(
 //     "Yellowtail",
 //     "url(https://fonts.googleapis.com/css2?family=Yellowtail&display=swap)"
@@ -88,7 +91,7 @@ var ctx = canvas.getContext('2d');
 // }
 // update();
 
-const image = document.getElementById('source');
+var image = document.getElementById('source');
 
 // Animation 2 - CharacterData
 const player = {
@@ -98,7 +101,10 @@ const player = {
     y: 200,
     speed: 10,
     dx: 0,
-    dy: 0
+    dy: 0,
+    jumpHeight: 12,
+    shouldJump: false,
+    jumpCounter: 0,
 }
 
 function drawPlayer(){
@@ -136,11 +142,21 @@ function detactWalls(){
         player.y = canvas.height - player.h;
     }
 }
+function drawText(){
+    ctx.font = "40px Ariel";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "left";
+    ctx.fillText("Wacky Wizard", 25, 60);   
+}
 
 function update(){
+    jump();
     clear();
+    drawText();
     drawPlayer();
     newPosition();
+    
+    
     requestAnimationFrame(update);
 }
 
@@ -154,14 +170,34 @@ function moveUp(){
 
 function moveLeft(){
     player.dx = -player.speed;
+    image = document.getElementById('sourceR');
+    
 }
 
 function moveRight(){
     player.dx = player.speed;
+    image = document.getElementById('source');
+}
+
+function jump(){
+    if(player.shouldJump){
+        player.jumpCounter++;
+        if(player.jumpCounter < 15){
+            // go up
+            player.y -= player.jumpHeight;
+        }else if(player.jumpCounter > 14 && player.jumpCounter < 19){
+            player.y += 0;
+        }else if(player.jumpCounter < 33 ){
+            player.y += player.jumpHeight;  
+        }
+        // end cycle
+        if(player.jumpCounter >= 32){
+            player.shouldJump = false;
+        }
+    }
 }
 
 function keyDown(e){
-    console.log(e.key);
     if(e.key === "ArrowRight" || e.key === "Right"){
         moveRight();
     }else if(e.key === "ArrowLeft" || e.key === "Left"){
@@ -170,6 +206,12 @@ function keyDown(e){
         moveUp();
     }else if(e.key === "ArrowDown" || e.key === "Down"){
         moveDown();
+    }else if(e.code === "Space"){
+        if(!player.shouldJump){
+            // jumpSFX.play();
+            player.jumpCounter = 0;
+            player.shouldJump = true;
+        }
     }
 }
 

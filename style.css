@@ -1,4 +1,4 @@
-*{font-family: 'Yellowtail', cursive;}
-body{background-color: black;}
-canvas{background-color: white;;}
-#source{display: none;}
+*{font-family: 'Yellowtail', cursive; padding:0; margin: 0;box-sizing: border-box;}
+
+
+#source,#sourceR{display: none;}
