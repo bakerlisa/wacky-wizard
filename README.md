@@ -1,1 +1,3 @@
-# html-canvas
+# HTML Canvas
+
+Practicing HTML Canvas
