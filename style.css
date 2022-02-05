@@ -1,3 +1,4 @@
 *{font-family: 'Yellowtail', cursive;}
-body{background-color: red;}
-canvas{border:solid 3px black;}
+body{background-color: black;}
+canvas{background-color: white;;}
+#source{display: none;}
