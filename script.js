@@ -57,181 +57,186 @@ canvas.height  = window.innerHeight;
 // ctx.stroke();
 
 
-//Animation1
-// const circle = {
-//     x: 200,
-//     y:200,
-//     size:20,
-//     dx: 5,
-//     dy: 3,
-// }
-
-// function drawCircle(){
-//     ctx.beginPath();
-//     ctx.arc(circle.x,circle.y,circle.size,0,Math.PI * 2);
-//     ctx.fitllStyle = "purple";
-//     ctx.fill();
-// }
-// function update(){
-//     ctx.clearRect(0,0,canvas.width, canvas.height);
-//     drawCircle();
-//     circle.x += circle.dx;
-//     circle.y += circle.dy;
-
-//     // Detect sidewalls
-//     if(circle.x + circle.size > canvas.width || circle.x - circle.size < 0 ){
-//         circle.dx *= -1;
-//     }
-//     // Detect to top/bottom walls
-//     if(circle.y + circle.size > canvas.height || circle.y - circle.size < 0){
-//         circle.dy *= -1;
-//     }
-
-//     requestAnimationFrame(update);
-// }
-// update();
-
-var image = document.getElementById('source');
-
-// Animation 2 - CharacterData
-const player = {
-    w: 50,
-    h: 70,
-    x: 20,
-    y: 200,
-    speed: 10,
-    dx: 0,
-    dy: 0,
-    jumpHeight: 12,
-    shouldJump: false,
-    jumpCounter: 0,
+// Animation1
+const circle = {
+    x: 0,
+    y:5,
+    size:5,
+    dx: 5,
+    dy: 3,
 }
 
-function drawPlayer(){
-    ctx.drawImage(image, player.x, player.y, player.w, player.h);
+function drawCircle(){
+    ctx.beginPath();
+    ctx.arc(circle.x,circle.y,circle.size,0,Math.PI * 2);
+    ctx.fitllStyle = "white";
+    ctx.fill();
 }
-
-function newPosition(){
-    player.x += player.dx;
-    player.y == player.dy;
-}
-
-function clear(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-}
-
-function newPosition(){
-    player.x += player.dx;
-    player.y += player.dy;
-    detactWalls();
-}
-
-function detactWalls(){
-    // left wall
-    if(player.x < 0){
-        player.x = 0;
-    }
-    if(player.x + player.w > canvas.width){
-        player.x = canvas.width - player.w;
-    }
-
-    if(player.y < 0){
-        player.y = 0;
-    }
-    if(player.y+player.h > canvas.height){
-        player.y = canvas.height - player.h;
-    }
-}
-function drawText(){
-    ctx.font = "40px Ariel";
-    ctx.fillStyle = "black";
-    ctx.textAlign = "left";
-    ctx.fillText("Wacky Wizard", 25, 60);   
-}
-
 function update(){
-    jump();
-    clear();
-    drawText();
-    drawPlayer();
-    newPosition();
-    
-    
+    // ctx.clearRect(0,0,canvas.width, canvas.height);
+    drawCircle();
+    circle.x += circle.dx;
+    circle.y += circle.dy;
+
+    // Detect sidewalls
+    if(circle.x + circle.size > canvas.width || circle.x - circle.size < 0 ){
+        circle.dx *= -1;
+    }
+    // Detect to top/bottom walls
+    if(circle.y + circle.size > canvas.height || circle.y - circle.size < 0){
+        circle.dy *= -1;
+    }
+
     requestAnimationFrame(update);
 }
-
-function moveDown(){
-    player.dy = player.speed;
-}
-
-function moveUp(){
-    player.dy = -player.speed;
-}
-
-function moveLeft(){
-    player.dx = -player.speed;
-    image = document.getElementById('sourceR');
-    
-}
-
-function moveRight(){
-    player.dx = player.speed;
-    image = document.getElementById('source');
-}
-
-function jump(){
-    if(player.shouldJump){
-        player.jumpCounter++;
-        if(player.jumpCounter < 15){
-            // go up
-            player.y -= player.jumpHeight;
-        }else if(player.jumpCounter > 14 && player.jumpCounter < 19){
-            player.y += 0;
-        }else if(player.jumpCounter < 33 ){
-            player.y += player.jumpHeight;  
-        }
-        // end cycle
-        if(player.jumpCounter >= 32){
-            player.shouldJump = false;
-        }
-    }
-}
-
-function keyDown(e){
-    if(e.key === "ArrowRight" || e.key === "Right"){
-        moveRight();
-    }else if(e.key === "ArrowLeft" || e.key === "Left"){
-        moveLeft();
-    }else if(e.key === "ArrowUp" || e.key === "Up"){
-        moveUp();
-    }else if(e.key === "ArrowDown" || e.key === "Down"){
-        moveDown();
-    }else if(e.code === "Space"){
-        if(!player.shouldJump){
-            // jumpSFX.play();
-            player.jumpCounter = 0;
-            player.shouldJump = true;
-        }
-    }
-}
-
-function keyUp(e){ 
-    if(
-        e.key == 'ArrowRight' ||
-        e.key == 'Right' ||
-        e.key == 'ArrowLeft' ||
-        e.key ==  'Left' ||
-        e.key == 'ArrowUp' ||
-        e.key == 'Up' ||
-        e.key == 'ArrowDown' ||
-        e.key == 'Down'
-    ){
-        player.dx = 0;
-        player.dy = 0;
-    }
-}
-
 update();
 
-document.addEventListener("keydown",keyDown);
-document.addEventListener("keyup",keyUp);
+
+
+
+
+
+// var image = document.getElementById('source');
+
+// // Animation 2 - CharacterData
+// const player = {
+//     w: 50,
+//     h: 70,
+//     x: 20,
+//     y: 200,
+//     speed: 10,
+//     dx: 0,
+//     dy: 0,
+//     jumpHeight: 12,
+//     shouldJump: false,
+//     jumpCounter: 0,
+// }
+
+// function drawPlayer(){
+//     ctx.drawImage(image, player.x, player.y, player.w, player.h);
+// }
+
+// function newPosition(){
+//     player.x += player.dx;
+//     player.y == player.dy;
+// }
+
+// function clear(){
+//     ctx.clearRect(0,0,canvas.width,canvas.height);
+// }
+
+// function newPosition(){
+//     player.x += player.dx;
+//     player.y += player.dy;
+//     detactWalls();
+// }
+
+// function detactWalls(){
+//     // left wall
+//     if(player.x < 0){
+//         player.x = 0;
+//     }
+//     if(player.x + player.w > canvas.width){
+//         player.x = canvas.width - player.w;
+//     }
+
+//     if(player.y < 0){
+//         player.y = 0;
+//     }
+//     if(player.y+player.h > canvas.height){
+//         player.y = canvas.height - player.h;
+//     }
+// }
+// function drawText(){
+//     ctx.font = "40px Ariel";
+//     ctx.fillStyle = "black";
+//     ctx.textAlign = "left";
+//     ctx.fillText("Wacky Wizard", 25, 60);   
+// }
+
+// function update(){
+//     jump();
+//     clear();
+//     drawText();
+//     drawPlayer();
+//     newPosition();
+    
+    
+//     requestAnimationFrame(update);
+// }
+
+// function moveDown(){
+//     player.dy = player.speed;
+// }
+
+// function moveUp(){
+//     player.dy = -player.speed;
+// }
+
+// function moveLeft(){
+//     player.dx = -player.speed;
+//     image = document.getElementById('sourceR');
+    
+// }
+
+// function moveRight(){
+//     player.dx = player.speed;
+//     image = document.getElementById('source');
+// }
+
+// function jump(){
+//     if(player.shouldJump){
+//         player.jumpCounter++;
+//         if(player.jumpCounter < 15){
+//             // go up
+//             player.y -= player.jumpHeight;
+//         }else if(player.jumpCounter > 14 && player.jumpCounter < 19){
+//             player.y += 0;
+//         }else if(player.jumpCounter < 33 ){
+//             player.y += player.jumpHeight;  
+//         }
+//         // end cycle
+//         if(player.jumpCounter >= 32){
+//             player.shouldJump = false;
+//         }
+//     }
+// }
+
+// function keyDown(e){
+//     if(e.key === "ArrowRight" || e.key === "Right"){
+//         moveRight();
+//     }else if(e.key === "ArrowLeft" || e.key === "Left"){
+//         moveLeft();
+//     }else if(e.key === "ArrowUp" || e.key === "Up"){
+//         moveUp();
+//     }else if(e.key === "ArrowDown" || e.key === "Down"){
+//         moveDown();
+//     }else if(e.code === "Space"){
+//         if(!player.shouldJump){
+//             // jumpSFX.play();
+//             player.jumpCounter = 0;
+//             player.shouldJump = true;
+//         }
+//     }
+// }
+
+// function keyUp(e){ 
+//     if(
+//         e.key == 'ArrowRight' ||
+//         e.key == 'Right' ||
+//         e.key == 'ArrowLeft' ||
+//         e.key ==  'Left' ||
+//         e.key == 'ArrowUp' ||
+//         e.key == 'Up' ||
+//         e.key == 'ArrowDown' ||
+//         e.key == 'Down'
+//     ){
+//         player.dx = 0;
+//         player.dy = 0;
+//     }
+// }
+
+// update();
+
+// document.addEventListener("keydown",keyDown);
+// document.addEventListener("keyup",keyUp);
